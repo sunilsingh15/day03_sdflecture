@@ -1,9 +1,13 @@
 package sg.edu.nus.iss;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -92,5 +96,49 @@ public class App
         dos2.close();
         fos2.close();
 
+
+        // reading from a file
+
+        File file2 = new File(dirPath + File.separator + fileName);
+        FileReader fr = new FileReader(file2);
+        int dataRead = fr.read();
+
+        while (dataRead != -1) {
+            System.out.print((char) dataRead);
+            dataRead = fr.read();
+        }
+        fr.close();
+
+        // another example using BufferedReader
+        
+        FileReader fr2 = new FileReader(file2);
+        BufferedReader br = new BufferedReader(fr2);
+        String line = "";
+        line = br.readLine();
+
+        while (line != null) {
+            System.out.println(line);
+            line = br.readLine();
+        }
+        br.close();
+        fr2.close();
+
+        // another example using FileInputStream and DataInputStream - types of decorators
+
+        FileInputStream fis = new FileInputStream(file2);
+        DataInputStream dis = new DataInputStream(fis);
+
+        // String result = dis.readUTF();
+        // System.out.println(result);
+
+        int disData = dis.read();
+
+        while (disData != -1) {
+            System.out.print((char) disData);
+            disData = dis.read();            
+        }
+
+        dis.close();
+        fis.close();
     }
  }
